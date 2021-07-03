@@ -3,19 +3,24 @@ import BinaryCodable
 import BinaryCookies
 
 class CookieCleaner {
-    static private let cookiesURL: URL = URL(fileURLWithPath: "~/Library/Cookies/Cookies.binarycookies")
+    
+    private static func pathFor(_ path: String) -> String {
+        return String(NSString(string: path).expandingTildeInPath)
+    }
+    
+    static private let cookiesURL: URL = URL(fileURLWithPath: CookieCleaner.pathFor("~/Library/Cookies/Cookies.binarycookies"))
     // contents of these directories will be erased
     static private let dirsToErase: [String] = [
         "~/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/",
         "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/WebsiteData/ResourceLoadStatistics/",
-    ].map({ String(NSString(string: $0).expandingTildeInPath) + "/" })
+    ].map({ CookieCleaner.pathFor($0) + "/" })
     // contents of these directories will be erased if names don't match whitelist
     static private let dirsToScan: [String] = [
         "~/Library/Safari/LocalStorage/",
         "~/Library/Safari/Databases/___IndexedDB/v1/",
         "~/Library/WebKit/MediaKeys/",
         "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/MediaKeys/",
-    ].map({ String(NSString(string: $0).expandingTildeInPath) + "/" })
+    ].map({ CookieCleaner.pathFor($0) + "/" })
     
     private var cookies: BinaryCookies
     private let whitelist: [NSRegularExpression]
@@ -28,7 +33,6 @@ class CookieCleaner {
                     ? nil
                     : try NSRegularExpression(pattern: String($0))
             })
-            
             let cookiesData = try Data(contentsOf: CookieCleaner.cookiesURL)
             self.cookies = try BinaryDataDecoder().decode(BinaryCookies.self, from: cookiesData)
         }
@@ -36,15 +40,6 @@ class CookieCleaner {
             print(String(describing: error))
             exit(EXIT_FAILURE)
         }
-    }
-    
-    func inWhitelist(test: String) -> Bool {
-        for item in self.whitelist {
-            if item.firstMatch(in: test, options: [], range: NSRange(location: 0, length: test.utf16.count)) != nil {
-                return true
-            }
-        }
-        return false
     }
     
     func run() {
@@ -65,9 +60,18 @@ class CookieCleaner {
         self.clearFiles()
     }
     
+    private func inWhitelist(test: String) -> Bool {
+        for item in self.whitelist {
+            if item.firstMatch(in: test, options: [], range: NSRange(location: 0, length: test.utf16.count)) != nil {
+                return true
+            }
+        }
+        return false
+    }
+    
     private func clearFiles() {
         let filemanager = FileManager.default
-        for path in CookieCleaner.dirsToErase {
+        for path in CookieCleaner.dirsToErase {
             filemanager.executeOnContentsOf(path: path, action: { (item: String) in
                 do { try filemanager.removeItem(atPath: path + item) }
                 catch { print(String(describing: error)) }
