@@ -13,4 +13,3 @@ guard let whitelistPath = CommandLine.arguments[safe: 1] else { printUsage(); ex
 
 let cookieCleaner = CookieCleaner(whitelistPath: whitelistPath)
 cookieCleaner.run()
-

@@ -15,3 +15,8 @@ public extension FileManager {
     }
 }
 
+public extension String {
+    var expandingTildeInPath: String {
+        get { NSString(string: self).expandingTildeInPath }
+    }
+}
