@@ -12,6 +12,7 @@ class CookieCleaner {
     // contents of these directories will be erased
     static private let dirsToErase: [String] = [
         "~/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/",
+        "~/Library/Containers/com.apple.Safari/Data/Library/Caches/WebKit/",
         "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/WebsiteData/ResourceLoadStatistics/",
     ].map({ CookieCleaner.pathFor($0) + "/" })
     // contents of these directories will be erased if names don't match whitelist
