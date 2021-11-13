@@ -1,6 +1,0 @@
-.build
-.swiftpm
-whitelist.txt
-caches*
-persistent.txt
-
