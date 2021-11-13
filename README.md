@@ -1,3 +1,3 @@
 # cookie-cleaner
 
-A description of this package.
+a tool to delete all non-whitelisted cookies
