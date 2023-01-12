@@ -14,9 +14,10 @@ make all
 ```
 
 To run, ensure Safari isn't running and then execute
-`.build/release/cookie-cleaner WHITELIST` where `WHITELIST` is a text file.
-Cookies and local data whose identifiers match the regular expression on any
-line of this file will be ignored, while all others will be deleted.
+`.build/release/cookie-cleaner WHITELIST` where `WHITELIST` is a the path to a
+text file.  Cookies and local data whose identifiers match the regular
+expression on any line of this file will be ignored, while all others will be
+deleted.
 
 As an example, to keep log-in data for `github.com`, simply add the line
 
@@ -27,6 +28,18 @@ github
 to your whitelist file. Note that the application you are launching
 `cookie-cleaner` from needs to have *Full Disk Access* enabled in the system
 *Security & Privacy* settings. Read below for an explanation why.
+
+### Creating an alias
+
+To use `cookie-cleaner` more comfortably, you can, for example, create an alias
+to run it with your whitelist-file in your shell. For `zsh`, you could add the
+following to your `~/.zshrc`
+
+```zsh
+alias cookie-cleaner="<repository path>/.build/release/cookie-cleaner <whitelist file path>"
+```
+
+and then run it simply with `cookie-cleaner`.
 
 ## Running `cookie-cleaner` automatically
 
