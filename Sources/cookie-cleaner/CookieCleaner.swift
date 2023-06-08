@@ -4,19 +4,19 @@ import BinaryCookies
 
 class CookieCleaner {
     
-    static private let cookiesURL: URL = URL(fileURLWithPath: "~/Library/Cookies/Cookies.binarycookies".expandingTildeInPath)
+    static private let cookiesURL: URL = URL(fileURLWithPath: "~/Library/Containers/com.apple.Safari/Data/Library/Cookies/Cookies.binarycookies".expandingTildeInPath)
     // contents of these directories will be erased
     static private let dirsToErase: [String] = [
-        "~/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/",
-        "~/Library/Containers/com.apple.Safari/Data/Library/Caches/WebKit/",
+        "~/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari",
+        "~/Library/Containers/com.apple.Safari/Data/Library/Caches/WebKit",
         "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/WebsiteData",
     ].map({ $0.expandingTildeInPath + "/" })
     // contents of these directories will be erased if names don't match whitelist
     static private let dirsToScan: [String] = [
-        "~/Library/Safari/LocalStorage/",
-        "~/Library/Safari/Databases/___IndexedDB/v1/",
+        "~/Library/Safari/LocalStorage",
+        "~/Library/Safari/Databases/___IndexedDB/v1",
         "~/Library/WebKit/MediaKeys/",
-        "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/MediaKeys/",
+        "~/Library/Containers/com.apple.Safari/Data/Library/WebKit/MediaKeys",
     ].map({ $0.expandingTildeInPath + "/" })
     
     private var cookies: BinaryCookies
