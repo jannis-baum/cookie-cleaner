@@ -1,15 +1,16 @@
 SHELL = /bin/bash
 
-srcdir = Sources
+SRCDIR = Sources
+SOURCES = $(wildcard $(SRCDIR)/**/*.swift)
 
-REPODIR = $(shell pwd)
-BUILDDIR = $(REPODIR)/.build
+PACKAGEDIR = $(shell pwd)
+
+BUILDDIR = $(PACKAGEDIR)/.build
 BUILD = $(BUILDDIR)/release/cookie-cleaner
 OUT = $(HOME)/.bin/cookie-cleaner
-SOURCES = $(wildcard $(srcdir)/**/*.swift)
 
 $(OUT): $(BUILD)
-	@mkdir -p $(dirname) $(OUT)
+	@mkdir -p $(shell dirname $(OUT))
 	@cp $(BUILD) $(OUT)
 
 $(BUILD): $(SOURCES)
