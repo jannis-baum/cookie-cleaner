@@ -4,14 +4,15 @@ srcdir = Sources
 
 REPODIR = $(shell pwd)
 BUILDDIR = $(REPODIR)/.build
+BUILD = $(BUILDDIR)/release/cookie-cleaner
+OUT = $(HOME)/.bin/cookie-cleaner
 SOURCES = $(wildcard $(srcdir)/**/*.swift)
 
-.DEFAULT_GOAL = all
+$(OUT): $(BUILD)
+	@mkdir -p $(dirname) $(OUT)
+	@cp $(BUILD) $(OUT)
 
-.PHONY: all
-all: clearcookies
-
-clearcookies: $(SOURCES)
+$(BUILD): $(SOURCES)
 	@swift build \
 		-c release \
 		--disable-sandbox \
@@ -21,5 +22,4 @@ clearcookies: $(SOURCES)
 
 .PHONY: clean
 clean:
-	@rm -r $(BUILDDIR)
-
+	@rm -rf $(BUILDDIR)
