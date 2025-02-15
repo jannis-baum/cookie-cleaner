@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "cookie-cleaner",
     dependencies: [
-        .package(url: "https://github.com/interstateone/BinaryCookies.git", from: "1.0.0"),
+        .package(url: "https://github.com/jannis-baum/BinaryCookies.git", .branch("master")),
     ],
     targets: [
         .target(
