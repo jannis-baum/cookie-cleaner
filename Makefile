@@ -19,7 +19,7 @@ $(BUILD): $(SOURCES)
 		--disable-sandbox \
 		--build-path "$(BUILDDIR)" \
 		-Xswiftc "-target" \
-		-Xswiftc "x86_64-apple-macosx10.11"
+		-Xswiftc "arm64-apple-macosx10.11"
 
 .PHONY: clean
 clean:
