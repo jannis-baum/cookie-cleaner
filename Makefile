@@ -7,7 +7,7 @@ PACKAGEDIR = $(shell pwd)
 
 BUILDDIR = $(PACKAGEDIR)/.build
 BUILD = $(BUILDDIR)/release/cookie-cleaner
-OUT = $(HOME)/.bin/cookie-cleaner
+OUT = $(HOME)/.local/bin/cookie-cleaner
 
 $(OUT): $(BUILD)
 	@mkdir -p $(shell dirname $(OUT))
